@@ -28,9 +28,9 @@ wheatYield <- function(deltaT=0, Pchange=0, Ta=10, T3=12, P2=200, P3=300, CO2=36
 # create a table with all T (-2 -- +7oC) and P (-30 -- +40%) change combinations
 datYieldEx <- data.table(expand.grid(deltaT=-2:7,Pchange=(-3:4)*10))
 # Ta=10oC, T3=12oC, P2=200 mm, P3=300 mm, CO2=360 ppm, soilwhc=150 mm
-datYieldEx1[,yield:=wheatYield(deltaT=deltaT,Pchange=Pchange)]
+datYieldEx[,yield:=wheatYield(deltaT=deltaT,Pchange=Pchange)]
 # calculate the %-change in yield relative to the unperturbed estimate
-datYieldEx1[,yieldChange:=100*(yield/datYieldEx1[deltaT==0&Pchange==0,yield]-1)]
-plotIRS(dat=datYieldEx1, var="yield", levels=seq(6,13.5,.5), title="DAISY emulator\nWinter wheat yield (t DM ha-1)", colSc="normal")
+datYieldEx[,yieldChange:=100*(yield/datYieldEx1[deltaT==0&Pchange==0,yield]-1)]
+plotIRS(dat=datYieldEx, var="yield", levels=seq(6,13.5,.5), title="DAISY emulator\nWinter wheat yield (t DM ha-1)", colSc="normal")
 addLegend(levels=seq(6,13.5,.5),add=TRUE, pos=c(7.2,-32,7.5,42))
 ```
