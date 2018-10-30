@@ -31,6 +31,7 @@ datYieldEx <- data.table(expand.grid(deltaT=-2:7,Pchange=(-3:4)*10))
 datYieldEx[,yield:=wheatYield(deltaT=deltaT,Pchange=Pchange)]
 # calculate the %-change in yield relative to the unperturbed estimate
 datYieldEx[,yieldChange:=100*(yield/datYieldEx1[deltaT==0&Pchange==0,yield]-1)]
-plotIRS(dat=datYieldEx, var="yield", levels=seq(6,13.5,.5), title="DAISY emulator\nWinter wheat yield (t DM ha-1)", colSc="normal")
+plotIRS(dat=datYieldEx, var="yield", levels=seq(6,13.5,.5),
+	title="DAISY emulator\nWinter wheat yield (t DM ha-1)", colSc="normal")
 addLegend(levels=seq(6,13.5,.5),add=TRUE, pos=c(7.2,-32,7.5,42))
 ```
