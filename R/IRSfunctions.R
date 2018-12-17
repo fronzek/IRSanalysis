@@ -33,13 +33,13 @@ getColors <- function(n, levels=NA, colSc="normal") {
 #return(c(colorRampPalette(c("#01665e","#c7eae5"))(sum(levels<=0)-1), colorRampPalette(c("#f6e8c3","#8c510a"))(length(levels)-sum(levels<=0)+1)))
 }
 
-###################
+
 #' Plot a single IRS without axes titles, wrapper for \code{\link{plotIRS}}
 #'
 #' \code{plotIRSnoaxes} no return values.
 #'
 #' @param ... Arguments passed over to \code{\link{plotIRS}}.
-#' @return Vector of the levels is for the plot.
+#' @return Vector of the levels used for the plot.
 #' @export
 plotIRSnoaxes <- function(...) {
 	return(plotIRS(..., xaxt="n", yaxt="n"))
@@ -75,9 +75,9 @@ matrix.poly <- function(x, y, z=mat, n=NULL){
  return(poly)
 }
 
-###################
-# plot a single IRS
-# (ToDo: some of the args could be treated as "..." as they are just handed over to plot)
+# ToDo: . some of the args could be treated as "..." as they are just handed over to plot
+#       . the loop to convert the table to a matrix could be replaced by more efficient data.table code using cast
+
 #' Plot a single IRS.
 #'
 #' \code{plotIRS} no return values.
@@ -89,7 +89,7 @@ matrix.poly <- function(x, y, z=mat, n=NULL){
 #' @param xlab x-axis label text
 #' @param ylab y-axis label text
 #' @param add if FALSE, starts a new plot, if TRUE, plots ontop on the current device
-#' @param col colour of contour lines
+#' @param col colour of contour lines, if NA, no contours are plotted
 #' @param lty line type of contour lines
 #' @param lwd line width of contour lines
 #' @param title plot title
@@ -100,11 +100,9 @@ matrix.poly <- function(x, y, z=mat, n=NULL){
 #' @param xlim Ranges of the x- and y-axes to plot (defaults to the range specified in dat$xvar and dat$yvar)
 #' @param ylim Ranges of the x- and y-axes to plot (defaults to the range specified in dat$xvar and dat$yvar)
 #' @param legend if true adds a legend to the plot
-#' @param contours if true plots data as contours; if false, plots the data as a grid; can also be used with
-#	transparent colour plotted on top of filled contour plots,
-#	e.g. \code{plotIRSnoaxes(dat=myDat, var="Z5", colSc=rgb(0,0,0, alpha=.2), levels=c(.5,1.5), contours=FALSE, add=TRUE)}
+#' @param contours if true plots data as contours; if false, plots the data as a grid; can also be used with transparent colour plotted on top of filled contour plots,	e.g. \code{plotIRSnoaxes(dat=myDat, var="Z5", colSc=rgb(0,0,0, alpha=.2), levels=c(.5,1.5), contours=FALSE, add=TRUE)}
 #' @param stippled if contours==FALSE, plot selected grid cells as stippled or hatched area
-#' @return Vector of the levels is for the plot.
+#' @return Vector of the levels used for the plot.
 #' @export
 plotIRS <- function(dat, xvar="deltaT", yvar="Pchange", xlab=expression(paste(plain("Temperature change ("),degree,plain("C)"))), ylab="Precipitation change (%)", var="grain_DM", add=FALSE, col="black", lty=1, lwd=1, title=NA, levels=NULL, cex=1, labcex=0.6, drawlabels=TRUE, colSc="normal", xlim=NULL, ylim=NULL, xaxt="s", yaxt="s", legend=FALSE, contours=TRUE, stippled=TRUE) {
 	#require(data.table)
@@ -221,7 +219,7 @@ plotIRS <- function(dat, xvar="deltaT", yvar="Pchange", xlab=expression(paste(pl
 	# 0-lines
 	lines(x=c(0,0),y=extendrange(ylim, f=1),col="grey")
 	lines(y=c(0,0),x=extendrange(xlim, f=1),col="grey")
-	if(contours) {
+	if(contours & !is.na(col)) {
 		contour(datlocal[,unique(xvar)],datlocal[,unique(yvar)],mat, col=col, lty=lty, lwd=lwd, add=add, method="flattest", levels=levels, labcex=labcex, drawlabels=drawlabels)
 	}
 	# add legend to the right of the plot
@@ -238,8 +236,7 @@ plotIRS <- function(dat, xvar="deltaT", yvar="Pchange", xlab=expression(paste(pl
 #'
 #' @param txt text to print on top of the legend, e.g. the unit
 #' @param topcolclass boolean; the top colour class isn't properly plotted in the IRS and left out by default (FALSE) in the legend as well
-#' @param pos position of the legend given as a vector c(xl,yb,xr,yt)
-#       that define the lower left and upper right coordinates of the rectange of colors in user coordinates
+#' @param pos position of the legend given as a vector c(xl,yb,xr,yt) that define the lower left and upper right coordinates of the rectange of colors in user coordinates
 #' @param showlevels if not null, a vector of two integer defining from which to which class to plot the legend, e.g. c(5,14) will not plot the first 4 levels and levels beyond the 14th
 #' @return No return value
 #' @export
