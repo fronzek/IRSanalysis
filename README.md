@@ -1,5 +1,5 @@
 # IRSanalysis
-An R package to plot impact response surfaces, 2-dimensional contour plots of tabled data that define values (in z-dim) to pairs of coordinates (x- and y-dimensions). These can be results of model simulations from a sensitivity analysis of two variables that have been perturbed jointly, e.g. the sensitivity of an impact model to changes in temperature and precipitation. For  examples, see Fronzek et al. (2011, doi:10.5194/nhess-11-2981-2011) and Pirttioja et al. (2015, doi:10.3354/cr01322).
+An R package to plot impact response surfaces, 2-dimensional contour plots of tabled data that define values (in z-dim) to pairs of coordinates (x- and y-dimensions). These can be results of model simulations from a sensitivity analysis of two variables that have been perturbed jointly, e.g. the sensitivity of an impact model to changes in temperature and precipitation. Examples of plots produced with this package are shown by [Fronzek et al. (2011)](https://dx.doi.org/10.5194/nhess-11-2981-2011), [Pirttioja et al. (2015)](https://dx.doi.org/10.3354/cr01322) and [Fronzek et al. (2018)](https://dx.doi.org/10.1007/s10113-018-1421-8).
 ## Install
 ```R
 # from github:
