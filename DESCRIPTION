@@ -8,7 +8,7 @@ Description: This package contains functions to plot impact response
 	impact model to changes in temperature and precipitation. For 
 	examples, see Fronzek et al. (2011, doi:10.5194/nhess-11-2981-2011) and
 	Pirttioja et al. (2015, doi:10.3354/cr01322).
-Version: 0.8.0
+Version: 0.8.1
 License: GPL-3
 Authors@R: c(
   person("Stefan", "Fronzek", email = "stefan.fronzek@ymparisto.fi",
