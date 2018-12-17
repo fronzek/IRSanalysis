@@ -10,7 +10,7 @@ plotIRSnoaxes(...)
 \item{...}{Arguments passed over to \code{\link{plotIRS}}.}
 }
 \value{
-Vector of the levels is for the plot.
+Vector of the levels used for the plot.
 }
 \description{
 \code{plotIRSnoaxes} no return values.

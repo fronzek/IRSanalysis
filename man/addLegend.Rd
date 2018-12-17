@@ -11,7 +11,7 @@ addLegend(colSc = "normal", levels = 1:10, txt = NULL,
 \arguments{
 \item{txt}{text to print on top of the legend, e.g. the unit}
 
-\item{pos}{position of the legend given as a vector c(xl,yb,xr,yt)}
+\item{pos}{position of the legend given as a vector c(xl,yb,xr,yt) that define the lower left and upper right coordinates of the rectange of colors in user coordinates}
 
 \item{topcolclass}{boolean; the top colour class isn't properly plotted in the IRS and left out by default (FALSE) in the legend as well}
 

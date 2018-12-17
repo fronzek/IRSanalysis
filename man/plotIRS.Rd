@@ -25,7 +25,7 @@ plotIRS(dat, xvar = "deltaT", yvar = "Pchange",
 
 \item{add}{if FALSE, starts a new plot, if TRUE, plots ontop on the current device}
 
-\item{col}{colour of contour lines}
+\item{col}{colour of contour lines, if NA, no contours are plotted}
 
 \item{lty}{line type of contour lines}
 
@@ -47,14 +47,14 @@ plotIRS(dat, xvar = "deltaT", yvar = "Pchange",
 
 \item{legend}{if true adds a legend to the plot}
 
-\item{contours}{if true plots data as contours; if false, plots the data as a grid; can also be used with}
+\item{contours}{if true plots data as contours; if false, plots the data as a grid; can also be used with transparent colour plotted on top of filled contour plots,    e.g. \code{plotIRSnoaxes(dat=myDat, var="Z5", colSc=rgb(0,0,0, alpha=.2), levels=c(.5,1.5), contours=FALSE, add=TRUE)}}
 
 \item{stippled}{if contours==FALSE, plot selected grid cells as stippled or hatched area}
 
 \item{varn}{Column name for the z-axis}
 }
 \value{
-Vector of the levels is for the plot.
+Vector of the levels used for the plot.
 }
 \description{
 \code{plotIRS} no return values.
