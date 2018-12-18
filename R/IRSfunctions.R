@@ -12,21 +12,21 @@ getColors <- function(n, levels=NA, colSc="normal") {
 	require(RColorBrewer)	# defines a number of color palettes
 	if(!is.na(levels[1]))
 		n <- length(levels)
-	if(colSc=="sharp")
+	if(colSc[1]=="sharp")
 		return(c(colorRampPalette(c("darkred","red","pink"))(sum(levels<=0)-1), colorRampPalette(c("lightgreen","green","darkgreen"))(length(levels)-sum(levels<=0)+1)))
-	if(colSc=="sharp_redgreenblue")
+	if(colSc[1]=="sharp_redgreenblue")
 		return(c(colorRampPalette(c("darkred","red","pink"))(sum(levels<=0)-1), colorRampPalette(c("lightgreen","lightblue","blue","darkblue"))(length(levels)-sum(levels<=0)+1)))
-	else if(colSc=="sharp100")
+	else if(colSc[1]=="sharp100")
 		return(c(colorRampPalette(c("LemonChiffon","Yellow","Orange"))(sum(levels<=100)-1), colorRampPalette(c("lightblue","blue","Darkblue"))(length(levels)-sum(levels<=100)+1)))
-	if(colSc=="sharp_cyanbrown")
+	if(colSc[1]=="sharp_cyanbrown")
 		return(c(colorRampPalette(c("#8c510a","#f6e8c3"))(sum(levels<=0)-1), colorRampPalette(c("#c7eae5","#01665e"))(length(levels)-sum(levels<=0)+1)))
-	else if(sum(row.names(brewer.pal.info)==colSc)==1) {	# check if colSc is defined in RColorBrewer
+	else if(sum(row.names(brewer.pal.info)==colSc[1])==1) {	# check if colSc is defined in RColorBrewer
 		return(brewer.pal(n, colSc))	# throws a warning if n is larger than max no of colours
-	} else if(colSc=="normal_reversed")
+	} else if(colSc[1]=="normal_reversed")
 		return(topo.colors(n=n)[n:1])
-	else if(colSc=="normalwhite")
+	else if(colSc[1]=="normalwhite")
 		return(c("white",topo.colors(n=n)[2:n]))
-	else if(colSc=="normal")
+	else if(colSc[1]=="normal")
 		return(topo.colors(n=n))
 	else
 		return(colSc)
@@ -180,7 +180,7 @@ plotIRS <- function(dat, xvar="deltaT", yvar="Pchange", xlab=expression(paste(pl
 	# filled.contour() always prepares a new plot with axes and legend, call the internal function instead
 	if(!is.null(colSc) & contours)
 		.filled.contour(datlocal[,unique(xvar)],datlocal[,unique(yvar)],mat, col=getColors(levels=levels,colSc=colSc), levels=levels)
-	if(!contours) { 
+	if(!contours) {
 		if(stippled) {
 			# hatching of selected grid cells
 			# solution from https://stackoverflow.com/questions/11736996/adding-stippling-to-image-contour-plot
