@@ -14,7 +14,7 @@ Authors@R: c(
   person("Stefan", "Fronzek", email = "stefan.fronzek@ymparisto.fi",
   role = c("aut", "cre")),
   person("Nina", "Pirttioja", role = "ctb"),
-  person("Tim", "Carter", role = "ctb"),
+  person("Timothy", "Carter", role = "ctb"),
   person("Anja", "Greschkowiak", role = "ctb"),
   person("Marc", "Taylor", role = "ctb")
   )
