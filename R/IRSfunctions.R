@@ -16,6 +16,8 @@ getColors <- function(n, levels=NA, colSc="normal") {
 		return(c(colorRampPalette(c("darkred","red","pink"))(sum(levels<=0)-1), colorRampPalette(c("lightgreen","green","darkgreen"))(length(levels)-sum(levels<=0)+1)))
 	if(colSc[1]=="sharp_redgreenblue")
 		return(c(colorRampPalette(c("darkred","red","pink"))(sum(levels<=0)-1), colorRampPalette(c("lightgreen","lightblue","blue","darkblue"))(length(levels)-sum(levels<=0)+1)))
+	if(colSc[1]=="BuYlRd")
+		return(c(colorRampPalette(c("#4575B4","#E0F3F8"))(sum(levels<=0)-1), colorRampPalette(c("#FEE090","#D73027"))(length(levels)-sum(levels<=0)+1)))
 	else if(colSc[1]=="sharp100")
 		return(c(colorRampPalette(c("LemonChiffon","Yellow","Orange"))(sum(levels<=100)-1), colorRampPalette(c("lightblue","blue","Darkblue"))(length(levels)-sum(levels<=100)+1)))
 	if(colSc[1]=="sharp_cyanbrown")
@@ -77,6 +79,7 @@ matrix.poly <- function(x, y, z=mat, n=NULL){
 
 # ToDo: . some of the args could be treated as "..." as they are just handed over to plot
 #       . the loop to convert the table to a matrix could be replaced by more efficient data.table code using cast
+#       . if colSc is a color vector, check that the lenght is one less than levels
 
 #' Plot a single IRS.
 #'
@@ -271,3 +274,55 @@ addLegend <- function(colSc="normal", levels=1:10, txt=NULL, pos=c(-1.3,0.0,-0.8
 	}
 }
 
+######
+#' Interpolate points on an impact response surface
+#'
+#' \code(interpIRS) returns values interpolated from an impact response surface
+#'
+#' @params dat data.table object with 3 columns (x, y, z)
+#' @params xvar Character vector containing the column name for the x dimension
+#' @params yvar Character vector containing the column name for the y dimension
+#' @params zvar Character vector containing the column name for the z dimension
+#' @params xo vector of x coordinates defining points to interpolate to (same length as yo)
+#' @params yo vector of y coordinates defining points to interpolate to (same length as xo)
+#' @params ... additional arguments for akima::interpp()
+#' #' @return Vector of interpolated values
+#' @export
+interp.IRS <- function(dat, xvar="X", yvar="Y", zvar="Z", xo, yo, ...) {
+  #cat("interp.IRS:",dim(dat),"xx",length(xo), "\n")
+  #cat("interp.IRS: number of rows of dat =",nrow(dat),"\n")
+  # todo: give warning if points are outside the range covered by the IRS
+  # todo: interpp calls interpp.old in akima 0.6-2, which always throws a warning
+  #       "interpp.old() is deprecated"
+  #       or, alternatively, used akima:bilinear() instead of akima:interpp()
+  suppressWarnings(# this is to avoid the warning about the depriciated interpp.old function call
+    ret <- as.vector(akima::interpp(x=unlist(dat[,xvar,with=FALSE]),
+                                    y=unlist(dat[,yvar,with=FALSE]),
+                                    z=unlist(dat[,zvar,with=FALSE]),
+                                    xo=xo, yo=yo, ...)$z)
+  )
+  # akima::bilinear gives 0-values for points outside the range of x and y
+  #!ret <- as.vector(akima::bilinear(x=unlist(dat[,xvar,with=FALSE]),
+  #!                                y=unlist(dat[,yvar,with=FALSE]),
+  #!                                z=matrix(data=unlist(dat[,zvar,with=FALSE]),
+  #!                                         nrow=length(unlist(dat[,xvar,with=FALSE])),
+  #!                                         ncol=length(unlist(dat[,yvar,with=FALSE]))),
+  #!                                x0=xo, y0=yo)$z)
+  #cat("interp.IRS:",length(unlist(dat[,xvar,with=FALSE])),"::",length(ret), "\n")
+  return(ret)
+}
+
+######
+#' Calculate the proportion of vector elements above a threshold (or below or any other operator) to estimate risk.
+#'
+#' \code(get.risk) returns the proportion of vector values below or above a threshold.  For a vector that represents an ensemble of projections of an indicator, these can be interpreted as the risk or likelihood that the indicator crosses the threshold value.
+#'
+#' @params vec vector
+#' @params thres treshold value
+#' @params na.rm a logical value indicating whether NA values should be stripped before the computation proceeds.
+#' #' @return Vector of interpolated values
+#' @export
+get.risk <- function(vec, thres, op=">", na.rm=FALSE) {
+  if(na.rm) { vec <- vec[!is.na(vec)] }
+  return(length(vec[do.call(op,list(vec, thres))])/length(vec))
+}
