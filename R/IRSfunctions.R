@@ -9,7 +9,7 @@
 #' @return Vector of colours.
 #' @export
 getColors <- function(n, levels=NA, colSc="normal") {
-	require(RColorBrewer)	# defines a number of color palettes
+	requireNamespace("RColorBrewer")	# defines a number of color palettes
 	if(!is.na(levels[1]))
 		n <- length(levels)
 	if(colSc[1]=="sharp")
@@ -237,14 +237,18 @@ plotIRS <- function(dat, xvar="deltaT", yvar="Pchange", xlab=expression(paste(pl
 #'
 #' \code{addLegend} no return values.
 #'
+#' @param colSc string defining the colour scheme
 #' @param txt text to print on top of the legend, e.g. the unit
 #' @param topcolclass boolean; the top colour class isn't properly plotted in the IRS and left out by default (FALSE) in the legend as well
 #' @param pos position of the legend given as a vector c(xl,yb,xr,yt) that define the lower left and upper right coordinates of the rectange of colors in user coordinates
+#' @param add boolean variable, TRUE to add to current plot, FALSE to start a new plot
 #' @param showlevels if not null, a vector of two integer defining from which to which class to plot the legend, e.g. c(5,14) will not plot the first 4 levels and levels beyond the 14th
+#' @param cex scaling factor for plotting text and symbols
+#' @param title.cex scaling factor for title font size
 #' @return No return value
 #' @export
 addLegend <- function(colSc="normal", levels=1:10, txt=NULL, pos=c(-1.3,0.0,-0.8,1.0), add=FALSE, topcolclass=FALSE, showlevels=NULL, cex=0.8, title.cex=1.4) {
-	require(plotrix)	# for color.legend()
+	requireNamespace("plotrix")	# for color.legend()
 	# prepare an empty plot
 	if(!add)
 		plot(c(0,1),c(0,1), type="n", axes=F, xlab="", ylab="")
@@ -279,14 +283,14 @@ addLegend <- function(colSc="normal", levels=1:10, txt=NULL, pos=c(-1.3,0.0,-0.8
 #'
 #' \code(interpIRS) returns values interpolated from an impact response surface
 #'
-#' @params dat data.table object with 3 columns (x, y, z)
-#' @params xvar Character vector containing the column name for the x dimension
-#' @params yvar Character vector containing the column name for the y dimension
-#' @params zvar Character vector containing the column name for the z dimension
-#' @params xo vector of x coordinates defining points to interpolate to (same length as yo)
-#' @params yo vector of y coordinates defining points to interpolate to (same length as xo)
-#' @params ... additional arguments for akima::interpp()
-#' #' @return Vector of interpolated values
+#' @param dat data.table object with 3 columns (x, y, z)
+#' @param xvar Character vector containing the column name for the x dimension
+#' @param yvar Character vector containing the column name for the y dimension
+#' @param zvar Character vector containing the column name for the z dimension
+#' @param xo vector of x coordinates defining points to interpolate to (same length as yo)
+#' @param yo vector of y coordinates defining points to interpolate to (same length as xo)
+#' @param ... additional arguments for akima::interpp()
+#' @return Vector of interpolated values
 #' @export
 interp.IRS <- function(dat, xvar="X", yvar="Y", zvar="Z", xo, yo, ...) {
   #cat("interp.IRS:",dim(dat),"xx",length(xo), "\n")
@@ -315,12 +319,12 @@ interp.IRS <- function(dat, xvar="X", yvar="Y", zvar="Z", xo, yo, ...) {
 ######
 #' Calculate the proportion of vector elements above a threshold (or below or any other operator) to estimate risk.
 #'
-#' \code(get.risk) returns the proportion of vector values below or above a threshold.  For a vector that represents an ensemble of projections of an indicator, these can be interpreted as the risk or likelihood that the indicator crosses the threshold value.
+#' \code(get.risk) returns the proportion of vector values below or above a threshold.
 #'
-#' @params vec vector
-#' @params thres treshold value
-#' @params na.rm a logical value indicating whether NA values should be stripped before the computation proceeds.
-#' #' @return Vector of interpolated values
+#' @param vec vector
+#' @param thres treshold value
+#' @param na.rm a logical value indicating whether NA values should be stripped before the computation proceeds.
+#' @return Vector of interpolated values
 #' @export
 get.risk <- function(vec, thres, op=">", na.rm=FALSE) {
   if(na.rm) { vec <- vec[!is.na(vec)] }
