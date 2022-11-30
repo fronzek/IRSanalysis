@@ -1,5 +1,5 @@
 Package: IRSanalysis
-Title: Package to plot impact response surfaces
+Title: Plot and analyse impact response surfaces
 Description: This package contains functions to plot impact response
 	surfaces (IRSs), 2-dimensional contour plots of tabled data that define
 	values (in z-dim) to pairs of coordinates (x- and y-dimensions). These
@@ -23,12 +23,12 @@ Authors@R: c(
   person("Marc", "Taylor", role = "ctb")
   )
 Maintainer: Stefan Fronzek <stefan.fronzek@syke.fi>
+URL: https://github.com/fronzek/IRSanalysis
 Imports:
     data.table,
     akima
 Suggests:
     plotrix,
     RColorBrewer
-RoxygenNote: 6.1.0
 Encoding: UTF-8
-LazyData: true
+RoxygenNote: 7.2.2
