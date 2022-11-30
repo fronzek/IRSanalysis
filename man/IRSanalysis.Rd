@@ -3,15 +3,18 @@
 \docType{package}
 \name{IRSanalysis}
 \alias{IRSanalysis}
-\alias{IRSanalysis-package}
 \title{IRSanalysis: Package for impact response surface plots}
 \description{
 This package contains functions to plot impact response
-surfaces (IRSs), 2-dimensional contour plots of tabled data that define
-values (in z-dim) to pairs of coordinates (x- and y-dimensions). These
-can be results of model simulations from a sensitivity analysis of two
-variables that have been perturbed jointly, e.g. the sensitivity of an
-impact model to changes in temperature and precipitation. For 
-example, see Fronzek et al. (2011, doi:10.5194/nhess-11-2981-2011) and
-Pirttioja et al. (2015, doi:10.3354/cr01322).
+ surfaces (IRSs), 2-dimensional contour plots of tabled data that define
+ values (in z-dim) to pairs of coordinates (x- and y-dimensions). These
+ can be results of model simulations from a sensitivity analysis of two
+ variables that have been perturbed jointly, e.g. the sensitivity of an
+ impact model to changes in temperature and precipitation. This package
+ was published as a supplement to Fronzek et al. (2022,
+ doi:10.1016/j.crm.2022.100466). Earlier versions of the code were used 
+ by Fronzek et al. (2011, doi:10.5194/nhess-11-2981-2011), Pirttioja et al.
+ (2015, doi:10.3354/cr01322), Fronzek et al. (2019,
+ doi:10.1007/s10113-018-1421-8) and Pirttioja et al. (2019,
+ doi:10.1016/j.agrformet.2018.10.006).
 }
