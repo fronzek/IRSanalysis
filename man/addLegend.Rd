@@ -4,18 +4,34 @@
 \alias{addLegend}
 \title{Plot a legend}
 \usage{
-addLegend(colSc = "normal", levels = 1:10, txt = NULL,
-  pos = c(-1.3, 0, -0.8, 1), add = FALSE, topcolclass = FALSE,
-  showlevels = NULL, cex = 0.8, title.cex = 1.4)
+addLegend(
+  colSc = "normal",
+  levels = 1:10,
+  txt = NULL,
+  pos = c(-1.3, 0, -0.8, 1),
+  add = FALSE,
+  topcolclass = FALSE,
+  showlevels = NULL,
+  cex = 0.8,
+  title.cex = 1.4
+)
 }
 \arguments{
+\item{colSc}{string defining the colour scheme}
+
 \item{txt}{text to print on top of the legend, e.g. the unit}
 
 \item{pos}{position of the legend given as a vector c(xl,yb,xr,yt) that define the lower left and upper right coordinates of the rectange of colors in user coordinates}
 
+\item{add}{boolean variable, TRUE to add to current plot, FALSE to start a new plot}
+
 \item{topcolclass}{boolean; the top colour class isn't properly plotted in the IRS and left out by default (FALSE) in the legend as well}
 
 \item{showlevels}{if not null, a vector of two integer defining from which to which class to plot the legend, e.g. c(5,14) will not plot the first 4 levels and levels beyond the 14th}
+
+\item{cex}{scaling factor for plotting text and symbols}
+
+\item{title.cex}{scaling factor for title font size}
 }
 \value{
 No return value
