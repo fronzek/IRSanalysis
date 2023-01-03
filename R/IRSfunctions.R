@@ -109,6 +109,8 @@ matrix.poly <- function(x, y, z=mat, n=NULL){
 #' @export
 plotIRS <- function(dat, xvar="deltaT", yvar="Pchange", xlab=expression(paste(plain("Temperature change ("),degree,plain("C)"))), ylab="Precipitation change (%)", var="grain_DM", add=FALSE, col="black", lty=1, lwd=1, title=NA, levels=NULL, cex=1, labcex=0.6, drawlabels=TRUE, colSc="normal", xlim=NULL, ylim=NULL, xaxt="s", yaxt="s", legend=FALSE, contours=TRUE, stippled=TRUE) {
 	#require(data.table)
+	print("Test")
+	print(class(xvar))
 	# create a local copy of the data with common column names
 	datlocal <- dat[,list(xvar=get(xvar), yvar=get(yvar), var=get(var))]
 	# make sure data are orderd by deltaT and Pchange
