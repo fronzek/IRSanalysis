@@ -12,7 +12,7 @@ Description: This package contains functions to plot impact response
 	(2015, doi:10.3354/cr01322), Fronzek et al. (2019,
 	doi:10.1007/s10113-018-1421-8) and Pirttioja et al. (2019,
 	doi:10.1016/j.agrformet.2018.10.006)
-Version: 1.0.0
+Version: 1.0.1
 License: GPL-3
 Authors@R: c(
   person("Stefan", "Fronzek", email = "stefan.fronzek@syke.fi",
@@ -24,7 +24,7 @@ Authors@R: c(
   )
 Maintainer: Stefan Fronzek <stefan.fronzek@syke.fi>
 URL: https://github.com/fronzek/IRSanalysis
-Imports:
+Depends:
     data.table,
     akima
 Suggests:
