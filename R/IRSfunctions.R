@@ -9,7 +9,7 @@
 #' @return Vector of colours.
 #' @export
 getColors <- function(n, levels=NA, colSc="normal") {
-	requireNamespace("RColorBrewer")	# defines a number of color palettes
+	#requireNamespace("RColorBrewer")	# defines a number of color palettes
 	if(!is.na(levels[1]))
 		n <- length(levels)
 	if(colSc[1]=="sharp")
@@ -22,8 +22,8 @@ getColors <- function(n, levels=NA, colSc="normal") {
 		return(c(colorRampPalette(c("LemonChiffon","Yellow","Orange"))(sum(levels<=100)-1), colorRampPalette(c("lightblue","blue","Darkblue"))(length(levels)-sum(levels<=100)+1)))
 	if(colSc[1]=="sharp_cyanbrown")
 		return(c(colorRampPalette(c("#8c510a","#f6e8c3"))(sum(levels<=0)-1), colorRampPalette(c("#c7eae5","#01665e"))(length(levels)-sum(levels<=0)+1)))
-	else if(sum(row.names(brewer.pal.info)==colSc[1])==1) {	# check if colSc is defined in RColorBrewer
-		return(brewer.pal(n, colSc))	# throws a warning if n is larger than max no of colours
+	else if(sum(row.names(RColorBrewer::brewer.pal.info)==colSc[1])==1) {	# check if colSc is defined in RColorBrewer
+		return(RColorBrewer::brewer.pal(n, colSc))	# throws a warning if n is larger than max no of colours
 	} else if(colSc[1]=="normal_reversed")
 		return(topo.colors(n=n)[n:1])
 	else if(colSc[1]=="normalwhite")
@@ -107,18 +107,11 @@ matrix.poly <- function(x, y, z=mat, n=NULL){
 #' @param stippled if contours==FALSE, plot selected grid cells as stippled or hatched area
 #' @return Vector of the levels used for the plot.
 #' @export
+#' @import data.table
 plotIRS <- function(dat, xvar="deltaT", yvar="Pchange", xlab=expression(paste(plain("Temperature change ("),degree,plain("C)"))), ylab="Precipitation change (%)", var="grain_DM", add=FALSE, col="black", lty=1, lwd=1, title=NA, levels=NULL, cex=1, labcex=0.6, drawlabels=TRUE, colSc="normal", xlim=NULL, ylim=NULL, xaxt="s", yaxt="s", legend=FALSE, contours=TRUE, stippled=TRUE) {
 	#require(data.table)
-	print("Test7")
 	# create a local copy of the data with common column names
-	datlocal <- data.table::data.table(cbind(dat[, match(xvar,names(dat)),with=FALSE],
-		dat[, match(yvar,names(dat)),with=FALSE],
-		dat[, match(var,names(dat)),with=FALSE]))
-	colnames(datlocal) <- c("xvar","yvar","var")
-	print(datlocal)
-	print(class(datlocal))
-	# the following line doesn't work in IRSanlaysis package
-	#datlocal <- dat[,list(xvar=get(xvar), yvar=get(yvar), var=get(var))]
+	datlocal <- dat[,list(xvar=get(xvar), yvar=get(yvar), var=get(var))]
 	# make sure data are orderd by deltaT and Pchange
 	setkey(datlocal,xvar,yvar)
 	if(is.null(xlim))
@@ -256,7 +249,7 @@ plotIRS <- function(dat, xvar="deltaT", yvar="Pchange", xlab=expression(paste(pl
 #' @return No return value
 #' @export
 addLegend <- function(colSc="normal", levels=1:10, txt=NULL, pos=c(-1.3,0.0,-0.8,1.0), add=FALSE, topcolclass=FALSE, showlevels=NULL, cex=0.8, title.cex=1.4) {
-	requireNamespace("plotrix")	# for color.legend()
+	#requireNamespace("plotrix")	# for color.legend()
 	# prepare an empty plot
 	if(!add)
 		plot(c(0,1),c(0,1), type="n", axes=F, xlab="", ylab="")
@@ -269,9 +262,9 @@ addLegend <- function(colSc="normal", levels=1:10, txt=NULL, pos=c(-1.3,0.0,-0.8
 	# plot colour legend with values inbetween the colour classes
 	# the top colour class isn't properly plotted in the IRS, so leave it out in the legend as well
 	if(topcolclass)
-		color.legend(pos[1],pos[2],pos[3],pos[4],legend=c("",as.vector(rbind(levels[2:(length(levels))],""))),rect.col=cols, cex=cex, align="rb", gradient="y")
+		plotrix::color.legend(pos[1],pos[2],pos[3],pos[4],legend=c("",as.vector(rbind(levels[2:(length(levels))],""))),rect.col=cols, cex=cex, align="rb", gradient="y")
 	else
-		color.legend(pos[1],pos[2],pos[3],pos[4],legend=c("",as.vector(rbind(levels[2:(length(levels)-1)],""))),rect.col=cols[1:(length(cols)-1)], cex=cex, align="rb", gradient="y")
+	  plotrix::color.legend(pos[1],pos[2],pos[3],pos[4],legend=c("",as.vector(rbind(levels[2:(length(levels)-1)],""))),rect.col=cols[1:(length(cols)-1)], cex=cex, align="rb", gradient="y")
 	# add some text (usually describing the unit) on top of the legend
 	if(!is.null(txt)) {
 		oldxpd<-par()$xpd
