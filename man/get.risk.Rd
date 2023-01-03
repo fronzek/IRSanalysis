@@ -17,5 +17,5 @@ get.risk(vec, thres, op = ">", na.rm = FALSE)
 Vector of interpolated values
 }
 \description{
-\code(get.risk) returns the proportion of vector values below or above a threshold.
+\code{get.risk} returns the proportion of vector values below or above a threshold.
 }
