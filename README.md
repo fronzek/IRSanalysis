@@ -35,3 +35,4 @@ plotIRS(dat=datYieldEx, var="yield", levels=seq(6,13.5,.5),
 	title="DAISY emulator\nWinter wheat yield (t DM ha-1)", colSc="normal")
 addLegend(levels=seq(6,13.5,.5),add=TRUE, pos=c(7.2,-32,7.5,42))
 ```
+![Example IRS plot](IRSanalysis_example_wheat-yield.png)
