@@ -25,5 +25,5 @@ interp.IRS(dat, xvar = "X", yvar = "Y", zvar = "Z", xo, yo, ...)
 Vector of interpolated values
 }
 \description{
-\code(interpIRS) returns values interpolated from an impact response surface
+\code{interpIRS} returns values interpolated from an impact response surface
 }
