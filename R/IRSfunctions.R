@@ -281,7 +281,7 @@ addLegend <- function(colSc="normal", levels=1:10, txt=NULL, pos=c(-1.3,0.0,-0.8
 ######
 #' Interpolate points on an impact response surface
 #'
-#' \code(interpIRS) returns values interpolated from an impact response surface
+#' \code{interpIRS} returns values interpolated from an impact response surface
 #'
 #' @param dat data.table object with 3 columns (x, y, z)
 #' @param xvar Character vector containing the column name for the x dimension
@@ -319,7 +319,7 @@ interp.IRS <- function(dat, xvar="X", yvar="Y", zvar="Z", xo, yo, ...) {
 ######
 #' Calculate the proportion of vector elements above a threshold (or below or any other operator) to estimate risk.
 #'
-#' \code(get.risk) returns the proportion of vector values below or above a threshold.
+#' \code{get.risk} returns the proportion of vector values below or above a threshold.
 #'
 #' @param vec vector
 #' @param thres treshold value
